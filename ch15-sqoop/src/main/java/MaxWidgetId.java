@@ -18,6 +18,7 @@ public class MaxWidgetId extends Configured implements Tool {
 
     private Widget maxWidget = null;
 
+    @Override
     public void map(LongWritable k, Text v, Context context) {
       Widget widget = new Widget();
       try {
@@ -38,6 +39,7 @@ public class MaxWidgetId extends Configured implements Tool {
       }
     }
 
+    @Override
     public void cleanup(Context context)
         throws IOException, InterruptedException {
       if (null != maxWidget) {
@@ -52,6 +54,7 @@ public class MaxWidgetId extends Configured implements Tool {
     // There will be a single reduce call with key '0' which gets
     // the max widget from each map task. Pick the max widget from
     // this list.
+    @Override
     public void reduce(LongWritable k, Iterable<Widget> vals, Context context)
         throws IOException, InterruptedException {
       Widget maxWidget = null;
@@ -74,6 +77,7 @@ public class MaxWidgetId extends Configured implements Tool {
     }
   }
 
+  @Override
   public int run(String [] args) throws Exception {
     Job job = new Job(getConf());
 
